@@ -5,7 +5,7 @@ from pygame.locals import*
 
 class Game():
     """This is the class that handles the main initialization and creation of the game."""
-    def __init__(self,width = 800,height = 800):
+    def __init__(self,width = 1000,height = 800):
         pygame.init()
         self.width = width
         self.height = height
@@ -27,7 +27,8 @@ class Game():
 
             for event in pygame.event.get():
                 self.player1.move_player(event)
-                self.zombie1.move_zombie(self.player1,3)
+                self.zombie1.move_zombie(self.player1,10)
+                self.detect_collision(self.player1,self.zombie1)
                 if event.type == pygame.QUIT:
                     sys.exit()
 
@@ -36,6 +37,18 @@ class Game():
         self.screen.blit(self.player1.surf,(self.player1.xloc,self.player1.yloc))
         self.screen.blit(self.zombie1.surf,(self.zombie1.xloc,self.zombie1.yloc))
         pygame.display.flip()
+
+    def detect_collision(self,rect1,rect2):
+        rect1_center_x = rect1.xloc + (rect1.xsize)/2
+        rect2_center_x = rect2.xloc + (rect2.xsize)/2
+
+        rect1_center_y = rect1.yloc + (rect1.ysize)/2
+        rect2_center_y = rect2.yloc + (rect2.ysize)/2
+
+        if abs(rect2_center_x - rect1_center_x) <= (rect1.xsize)/2 + (rect2.xsize)/2:
+            if abs(rect2_center_y - rect2_center_y) <= (rect1.ysize)/2 + (rect2.ysize)/2:
+                print("Collision detected!")
+                return True
 
     #def update(self):
         #possibly implement later to control movement of player and zombies
@@ -99,11 +112,14 @@ class Zombie():
         print("y",p_y - z_y)
         print("x",p_x - z_x)
         print("slope",m)
-
         move_x = r/math.sqrt(1+m**2)
         print("move_x",move_x)
         move_y = m * move_x
         print("move_y",move_y)
+        if  p_y - z_y < 0 and p_x - z_x < 0:
+            move_x = - move_x
+            move_y = -move_y
+
         self.xloc += move_x
         self.yloc += move_y
 
