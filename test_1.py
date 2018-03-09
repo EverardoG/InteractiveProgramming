@@ -1,10 +1,11 @@
 import os,sys
 import pygame
+import math
 from pygame.locals import*
 
 class Game():
     """This is the class that handles the main initialization and creation of the game."""
-    def __init__(self,width = 400,height = 800):
+    def __init__(self,width = 800,height = 800):
         pygame.init()
         self.width = width
         self.height = height
@@ -15,6 +16,7 @@ class Game():
         # self.rect = pygame.Rect(0, 0, self.width, self.height)
         #self.background = pygame.draw.rect(self.background_surf,self.color,self.rect, 0) #not actually sure what this does...
         self.player1 = Player()
+        self.zombie1 = Zombie()
         #self.event_list = [] #may implement later
 
     def MainLoop(self):
@@ -25,12 +27,14 @@ class Game():
 
             for event in pygame.event.get():
                 self.player1.move_player(event)
+                self.zombie1.move_zombie(self.player1,3)
                 if event.type == pygame.QUIT:
                     sys.exit()
 
     def refresh(self):
         self.screen.blit(self.background_surf,(0,0))
         self.screen.blit(self.player1.surf,(self.player1.xloc,self.player1.yloc))
+        self.screen.blit(self.zombie1.surf,(self.zombie1.xloc,self.zombie1.yloc))
         pygame.display.flip()
 
     #def update(self):
@@ -48,8 +52,8 @@ class Player():
         self.surf = pygame.Surface((self.xsize,self.ysize))
         self.color = 255,0,0
         self.surf.fill(self.color)
-        self.xloc = 100
-        self.yloc = 100
+        self.xloc = 300
+        self.yloc = 300
         self.rect = pygame.Rect(self.xloc, self.yloc, self.xsize, self.ysize)
         self.rect.width = 0
 
@@ -67,7 +71,41 @@ class Player():
                 self.xloc -= 3
             elif pressed[pygame.K_d]:
                 self.xloc += 3
+class Zombie():
+    """This is the zombie class that will chase the player around on the screen"""
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.xsize = 40
+        self.ysize = 40
+        self.surf = pygame.Surface((self.xsize,self.ysize))
+        self.color = 0,255,0
+        self.surf.fill(self.color)
+        self.xloc = 100
+        self.yloc = 100
+        self.rect = pygame.Rect(self.xloc, self.yloc, self.xsize, self.ysize)
+        self.rect.width = 0
 
+    def draw_zombie(self):
+        self.drawing = pygame.draw.rect(self.surf,self.color,self.rect,self.rect.width)
+
+    def move_zombie(self,player,r):
+        """This moves the zombie towards the player specified by r pixels"""
+        p_x = player.xloc
+        p_y = player.yloc
+        z_x = self.xloc
+        z_y = self.yloc
+
+        m = (p_y - z_y)/(p_x - z_x)
+        print("y",p_y - z_y)
+        print("x",p_x - z_x)
+        print("slope",m)
+
+        move_x = r/math.sqrt(1+m**2)
+        print("move_x",move_x)
+        move_y = m * move_x
+        print("move_y",move_y)
+        self.xloc += move_x
+        self.yloc += move_y
 
     #def LoadSprites(self):
     #    """Load the sprites we need"""
