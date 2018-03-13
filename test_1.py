@@ -2,6 +2,7 @@ import os,sys
 import pygame
 import math
 from pygame.locals import*
+import numpy as np
 
 class Game():
     """This is the class that handles the main initialization and creation of the game."""
@@ -34,8 +35,8 @@ class Game():
 
     def refresh(self):
         self.screen.blit(self.background_surf,(0,0))
-        self.screen.blit(self.player1.surf,(self.player1.xloc,self.player1.yloc))
-        self.screen.blit(self.zombie1.surf,(self.zombie1.xloc,self.zombie1.yloc))
+        self.screen.blit(self.player1.surf,(self.player1.loc[0],self.player1.loc[1]))
+        self.screen.blit(self.zombie1.surf,(self.zombie1.loc[0],self.zombie1.loc[1]))
         pygame.display.flip()
 
     def detect_collision(self,rect1,rect2):
@@ -65,9 +66,8 @@ class Player():
         self.surf = pygame.Surface((self.xsize,self.ysize))
         self.color = 255,0,0
         self.surf.fill(self.color)
-        self.xloc = 300
-        self.yloc = 300
-        self.rect = pygame.Rect(self.xloc, self.yloc, self.xsize, self.ysize)
+        self.loc = np.array([100,100])
+        self.rect = pygame.Rect(self.loc[0], self.loc[1], self.xsize, self.ysize)
         self.rect.width = 0
 
     def draw_player(self):
@@ -77,13 +77,13 @@ class Player():
         if event.type == KEYDOWN:
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_w]:
-                self.yloc -= 3
+                self.loc[1] -= 3
             elif pressed[pygame.K_s]:
-                self.yloc += 3
+                self.loc[1] += 3
             elif pressed[pygame.K_a]:
-                self.xloc -= 3
+                self.loc[0] -= 3
             elif pressed[pygame.K_d]:
-                self.xloc += 3
+                self.loc[0] += 3
 class Zombie():
     """This is the zombie class that will chase the player around on the screen"""
     def __init__(self):
@@ -93,8 +93,7 @@ class Zombie():
         self.surf = pygame.Surface((self.xsize,self.ysize))
         self.color = 0,255,0
         self.surf.fill(self.color)
-        self.xloc = 100
-        self.yloc = 100
+        self.loc = np.array([300, 300])
         self.rect = pygame.Rect(self.xloc, self.yloc, self.xsize, self.ysize)
         self.rect.width = 0
 
@@ -103,25 +102,15 @@ class Zombie():
 
     def move_zombie(self,player,r):
         """This moves the zombie towards the player specified by r pixels"""
-        p_x = player.xloc
-        p_y = player.yloc
-        z_x = self.xloc
-        z_y = self.yloc
 
-        m = (p_y - z_y)/(p_x - z_x)
-        print("y",p_y - z_y)
-        print("x",p_x - z_x)
-        print("slope",m)
-        move_x = r/math.sqrt(1+m**2)
-        print("move_x",move_x)
-        move_y = m * move_x
-        print("move_y",move_y)
-        if  p_y - z_y < 0 and p_x - z_x < 0:
-            move_x = - move_x
-            move_y = -move_y
-
-        self.xloc += move_x
-        self.yloc += move_y
+        m = player.loc - self.loc
+        print(m)
+        m_now = m/100
+        print(m_now)
+        move_x = m_now[0]
+        move_y = m_now[1]
+        self.loc[0] += move_x
+        self.loc[1] += move_y
 
     #def LoadSprites(self):
     #    """Load the sprites we need"""
