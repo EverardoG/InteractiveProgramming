@@ -12,7 +12,7 @@ class Game():
         self.height = height
         self.screen = pygame.display.set_mode((self.width,self.height))
         self.background_surf = pygame.Surface((self.width, self.height))
-        self.color = (145, 168, 168)
+        self.color = (200,200,200)
         self.background_surf.fill(self.color)
         # self.rect = pygame.Rect(0, 0, self.width, self.height)
         #self.background = pygame.draw.rect(self.background_surf,self.color,self.rect, 0) #not actually sure what this does...
@@ -32,6 +32,15 @@ class Game():
                 self.detect_collision(self.player1,self.zombie1)
                 if event.type == pygame.QUIT:
                     sys.exit()
+
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
 
     def refresh(self):
         self.screen.blit(self.background_surf,(0,0))
@@ -109,6 +118,7 @@ class Player():
         print(m_now)
         move_x = m_now[0]
         move_y = m_now[1]
+        #RUIN
         self.loc[0] += move_x
         self.loc[1] += move_y
 
@@ -144,3 +154,7 @@ if __name__ == "__main__":
 #         for event in pygame.event.get():
 #             if event.type == pygame.QUIT:
 #                 sys.exit()
+
+
+#RUININGJKLA;SDFF;SADFLKJ;LK;JASDFKLJ;ASDFLKJ;ADSFLKJ;DSALKF;AJLK;FJDSAL;JFKL;DSAJKFLDASJKLF;JDASLF
+#BOADSJKFLJASLKFJADSLKJKFKLK
