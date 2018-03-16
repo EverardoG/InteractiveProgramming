@@ -81,21 +81,21 @@ class Player():
             elif pressed[pygame.K_s]:
                 self.loc[1] += 3
             elif pressed[pygame.K_a]:
-                self.loc[0] -= 3
-            elif pressed[pygame.K_d]:
-                self.loc[0] += 3
-class Zombie():
-    """This is the zombie class that will chase the player around on the screen"""
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.xsize = 40
-        self.ysize = 40
-        self.surf = pygame.Surface((self.xsize,self.ysize))
-        self.color = 0,255,0
-        self.surf.fill(self.color)
-        self.loc = np.array([300, 300])
-        self.rect = pygame.Rect(self.xloc, self.yloc, self.xsize, self.ysize)
-        self.rect.width = 0
+#                 self.loc[0] -= 3
+#             elif pressed[pygame.K_d]:
+#                 self.loc[0] += 3
+# class Zombie():
+#     """This is the zombie class that will chase the player around on the screen"""
+#     def __init__(self):
+#         pygame.sprite.Sprite.__init__(self)
+#         self.xsize = 40
+#         self.ysize = 40
+#         self.surf = pygame.Surface((self.xsize,self.ysize))
+#         self.color = 0,255,0
+#         self.surf.fill(self.color)
+#         self.loc = np.array([300, 300])
+#         self.rect = pygame.Rect(self.xloc, self.yloc, self.xsize, self.ysize)
+#         self.rect.width = 0
 
     def draw_zombie(self):
         self.drawing = pygame.draw.rect(self.surf,self.color,self.rect,self.rect.width)
