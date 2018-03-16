@@ -12,7 +12,7 @@ class Game():
         self.height = height
         self.screen = pygame.display.set_mode((self.width,self.height))
         self.background_surf = pygame.Surface((self.width, self.height))
-        self.color = (145, 168, 168)
+        self.color = (200,200,200)
         self.background_surf.fill(self.color)
         # self.rect = pygame.Rect(0, 0, self.width, self.height)
         #self.background = pygame.draw.rect(self.background_surf,self.color,self.rect, 0) #not actually sure what this does...
@@ -32,6 +32,15 @@ class Game():
                 self.detect_collision(self.player1,self.zombie1)
                 if event.type == pygame.QUIT:
                     sys.exit()
+
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
+# I AM RUINING THIS CODE
 
     def refresh(self):
         self.screen.blit(self.background_surf,(0,0))
@@ -84,6 +93,7 @@ class Player():
                 self.loc[0] -= 3
             elif pressed[pygame.K_d]:
                 self.loc[0] += 3
+
 class Zombie():
     """This is the zombie class that will chase the player around on the screen"""
     def __init__(self):
