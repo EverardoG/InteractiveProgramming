@@ -18,12 +18,12 @@ class Game():
         # self.cropx,self.cropy = 1400,788
         # self.cropRect = (self.cropx, self.cropy, self.rect.width,self.rect.height)
 
-        self.player1 = Player(random.randint(1101,1400),random.randint(0,788))
+        self.player1 = Player(random.randint(990,1018),random.randint(0,786))
         #self.player1 = Player(200,300) #this is for helping us debug
-        self.zombie1 = Zombie(random.randint(0,1100),random.randint(0,788))
-        self.zombie2 = Zombie(random.randint(0,1100),random.randint(0,788))
-        self.zombie3 = Zombie(random.randint(0,1100),random.randint(0,788))
-        self.zombie4 = Zombie(random.randint(0,1100),random.randint(0,788))
+        self.zombie1 = Zombie(random.randint(0,990),random.randint(0,786))
+        self.zombie2 = Zombie(random.randint(0,990),random.randint(0,786))
+        self.zombie3 = Zombie(random.randint(0,990),random.randint(0,786))
+        self.zombie4 = Zombie(random.randint(0,990),random.randint(0,786))
         self.safezone = SafeZone()
 
     def win(self):
