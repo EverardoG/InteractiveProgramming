@@ -7,13 +7,13 @@ import random
 
 class Game():
     """This is the class that handles the main initialization and creation of the game."""
-    def __init__(self,width = 1400,height = 788):
+    def __init__(self,width = 1024,height = 786):
         pygame.init()
         self.width = width
         self.height = height
         self.size = self.width, self.height
         self.screen = pygame.display.set_mode(self.size)
-        self.background_surf = pygame.image.load("background1.png")
+        self.background_surf = pygame.image.load("haunted-houses.png")
         self.rect = self.background_surf.get_rect()
         # self.cropx,self.cropy = 1400,788
         # self.cropRect = (self.cropx, self.cropy, self.rect.width,self.rect.height)
