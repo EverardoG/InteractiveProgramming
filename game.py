@@ -7,7 +7,7 @@ import random
 
 class Game():
     """This is the class that handles the main initialization and creation of the game."""
-    def __init__(self,width = 1024,height = 786):
+    def __init__(self,width = 1024,height = 760):
         pygame.init()
         self.width = width
         self.height = height
@@ -18,12 +18,12 @@ class Game():
         # self.cropx,self.cropy = 1400,788
         # self.cropRect = (self.cropx, self.cropy, self.rect.width,self.rect.height)
 
-        self.player1 = Player(random.randint(990,1018),random.randint(0,786))
+        self.player1 = Player(980,random.randint(0,786))
         #self.player1 = Player(200,300) #this is for helping us debug
-        self.zombie1 = Zombie(random.randint(0,990),random.randint(0,786))
-        self.zombie2 = Zombie(random.randint(0,990),random.randint(0,786))
-        self.zombie3 = Zombie(random.randint(0,990),random.randint(0,786))
-        self.zombie4 = Zombie(random.randint(0,990),random.randint(0,786))
+        self.zombie1 = Zombie(random.randint(0,970),random.randint(0,786))
+        self.zombie2 = Zombie(random.randint(0,970),random.randint(0,786))
+        self.zombie3 = Zombie(random.randint(0,970),random.randint(0,786))
+        self.zombie4 = Zombie(random.randint(0,970),random.randint(0,786))
         self.safezone = SafeZone()
 
     def win(self):
@@ -115,9 +115,10 @@ class Player():
         pygame.sprite.Sprite.__init__(self)
         self.xsize = 40
         self.ysize = 40
-        self.surf = pygame.Surface((self.xsize,self.ysize))
-        self.color = 255,0,0
-        self.surf.fill(self.color)
+        self.surf = pygame.image.load("char.jpg")
+        self.surf = pygame.transform.scale(self.surf,(40,40))
+        # self.color = 255,0,0
+        # self.surf.fill(self.color)
         self.loc = np.array([x, y])
         # self.xloc = self.loc[0]
         # self.yloc = self.loc[1]
@@ -148,7 +149,7 @@ class Zombie():
         self.surf = pygame.Surface((self.xsize,self.ysize))
         # self.color = 0,255,0
         # self.surf.fill(self.color)
-        self.surf = pygame.image.load("zombie2.png")
+        self.surf = pygame.image.load("zombie3.png")
         self.surf = pygame.transform.scale(self.surf,(40,40))
         self.rect = self.surf.get_rect()
         self.loc = np.array([xloc,yloc])
@@ -192,7 +193,7 @@ class SafeZone():
         self.color = 100,250,100
         self.surf.fill(self.color)
         self.rect = self.surf.get_rect()
-        self.loc = np.array([280, 420])
+        self.loc = np.array([200, 580])
 
         self.rect = pygame.Rect(self.loc[0], self.loc[1], self.xsize, self.ysize)
         self.rect.width = 0
